@@ -32,7 +32,7 @@ impl JsonDict {
         }
         else
         {
-            eprintln!("Error: There is no converter for this dictionary ({}). Output dictionary will have no entries.", name);
+            eprintln!("Error: There is no converter for this dictionary ({}).", name);
             eprintln!("The following dictionaries are supported:");
             eprintln!("{}", supported().join("\n"));
             panic!();
