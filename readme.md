@@ -8,4 +8,6 @@ Currently only supports shinmeikai, 5th edition.
 
 Invoke as:
 
-	<executable> <filename>
+	<executable> <filename> > <desired json dict filename>.json
+
+from a unix-like shell.
