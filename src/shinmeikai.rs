@@ -30,7 +30,7 @@ fn shinmeikai_strip_second_heading(definition : &mut Vec<String>, reading: &Stri
 
 fn shinmeikai_strip_examples(definition : &mut Vec<String>)
 {
-    let re = Regex::new("^「.*」").unwrap();
+    let re = Regex::new("^「.*」$").unwrap();
     let mut i = 0;
     while i < definition.len()
     {
@@ -88,13 +88,22 @@ fn shinmeikai_is_kana_toc(list : &Vec<String>) -> bool
     }
     return false;
 }
+fn shinmeikai_is_kana_kanji_ref(list : &Vec<String>) -> bool
+{
+    let re = Regex::new("^（.*）[ ]*→【字音語の造語成分】$").unwrap();
+    if list.len() == 2
+    {
+        return re.is_match(&list[1]);
+    }
+    return false;
+}
 
 fn shinmeikai_body_converter(body : &String) -> Option<Vec<String>>
 {
     let mut entries : Vec<String> = body.trim().split("\n").map(|s| s.to_string()).collect();
     let definition = entries.drain(..).map(|mut s| s.drain(..).collect()).collect();
     
-    if shinmeikai_is_kana_toc(&definition)
+    if shinmeikai_is_kana_toc(&definition) || shinmeikai_is_kana_kanji_ref(&definition)
     {
         return None;
     }
