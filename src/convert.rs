@@ -1,3 +1,5 @@
+#![allow(clippy::ptr_arg)]
+
 use text_io::{try_read, try_scan, read};
 
 use crate::shinmeikai::*;

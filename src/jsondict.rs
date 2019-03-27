@@ -1,3 +1,5 @@
+#![allow(clippy::suspicious_else_formatting)]
+
 use serde_derive::{Serialize, Deserialize};
 
 use crate::epwing::*;
@@ -10,8 +12,8 @@ pub (crate) struct JsonDict {
 
 #[derive(Serialize, Deserialize)]
 pub (crate) struct JsonEntry {
-    pub (crate)r: String,
-    pub (crate)s: Vec<String>,
+    pub (crate) r: String,
+    pub (crate) s: Vec<String>,
     pub (crate) l: Vec<String>,
 }
 
