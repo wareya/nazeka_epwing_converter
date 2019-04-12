@@ -59,7 +59,6 @@ pub (crate) fn convert_wadai_5_no_stripping(entry : &EpwingEntry) -> Option<Json
         None
     }
 }
-
 fn wadai_body_converter_heavy_stripping(body : &String) -> Option<Vec<String>>
 {
     let body = wadai_gaiji_fixer(body.as_str());
@@ -280,7 +279,6 @@ fn wadai_body_converter_no_stripping(body : &String) -> Option<Vec<String>>
     
     return Some(definition);
 }
-
 fn wadai_heading_converter(heading : &String) -> Option<(String, Vec<String>)>
 {
     let mut heading = wadai_gaiji_fixer(heading.as_str());
@@ -306,6 +304,11 @@ fn wadai_heading_converter(heading : &String) -> Option<(String, Vec<String>)>
         reading = heading;
     }
     reading = reading.trim_end_matches(|c| c as u32 >= 0xFF10 && c as u32 <= 0xFF19).trim_start_matches('-').to_string();
+    
+    if reading.chars().next().unwrap() == '「'
+    {
+        return None;
+    }
     
     for spelling in spellings.iter_mut()
     {
