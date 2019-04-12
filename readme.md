@@ -4,7 +4,10 @@ The zero-epwing dictionary must already be manually edited to fix missing defini
 
 Pre-alpha, not currently for general use. If you want to use this you have to compile it for yourself.
 
-Currently only supports shinmeikai, 5th edition.
+Currently only supports:
+
+- shinmeikai, 5th edition.
+- kenkyuusha's wadai, 5th edition
 
 Invoke as:
 
