@@ -217,8 +217,12 @@ fn wadai_body_converter_light_stripping(body : &String) -> Option<Vec<String>>
                 {
                     mode = 0;
                 }
+                if mode == 0 || first_char == '►' || first_char == '◨' || first_char == '◧'
+                {
+                    ret.push(def);
+                }
             }
-            if mode == 0 || first_char == '►' || first_char == '◨' || first_char == '◧'
+            else if mode == 0
             {
                 ret.push(def);
             }
@@ -242,8 +246,12 @@ fn wadai_body_converter_light_stripping(body : &String) -> Option<Vec<String>>
                 {
                     mode = 1;
                 }
+                if mode == 0 || first_char == '►' || first_char == '◨' || first_char == '◧'
+                {
+                    ret.push(def);
+                }
             }
-            if mode == 0 || first_char == '►' || first_char == '◨' || first_char == '◧'
+            else if mode == 0
             {
                 ret.push(def);
             }
