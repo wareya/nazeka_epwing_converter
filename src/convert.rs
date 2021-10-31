@@ -4,6 +4,7 @@ use text_io::{try_read, try_scan, read};
 
 use crate::shinmeikai::*;
 use crate::wadai::*;
+use crate::daijirin::*;
 use crate::jsondict::*;
 use crate::epwing::*;
 
@@ -50,6 +51,21 @@ pub (crate) fn get_converter(name : &String) -> Option<&'static Converter>
                 _ => None
             }
         }
+        "三省堂　スーパー大辞林" =>
+         {
+             eprintln!("There are multiple converters for this dictionary. Select the one you want to use.");
+             eprintln!("1: With waei and eiwa entries");
+             eprintln!("2: Without waei and eiwa entries (recommended)");
+             eprintln!("Enter a number: ");
+
+             let i: i32 = read!();
+             match i
+             {
+                 1 => Some(&convert_daijirin),
+                 2 => Some(&convert_daijirin_no_waei_and_eiwa),
+                 _ => None
+             }
+         }
         _ => None
     }
 }
