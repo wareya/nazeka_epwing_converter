@@ -12,6 +12,8 @@ lazy_static! {
     // group 3: spellings
     // group 4: PoS etc.
     static ref SECOND_HEADING_REGEX:Regex = Regex::new(r"([^\[]+)(\[[0-9]\])? ?(【.+】)?(.+)?").unwrap();
+
+    static ref EXAMPLE_REGEX:Regex = Regex::new(r"(「[^「]*―[^「]*」)").unwrap();
 }
 
 fn daijirin_strip_second_heading(definition: &mut Vec<String>)
@@ -26,6 +28,21 @@ fn daijirin_strip_second_heading(definition: &mut Vec<String>)
         {
             definition.remove(0);
         }
+    }
+}
+
+fn daijirin_strip_examples(definition: &mut Vec<String>)
+{
+    let mut i = 0;
+    while i < definition.len()
+    {
+        let mut new = definition[i].clone();
+        for capture in EXAMPLE_REGEX.captures_iter(&definition[i])
+        {
+            new = new.replace(capture.get(0).map_or("", |m| m.as_str()), "");
+        }
+        definition[i] = new;
+        i += 1;
     }
 }
 
@@ -45,6 +62,30 @@ pub(crate) fn convert_daijirin_no_waei_and_eiwa(entry: &EpwingEntry) -> Option<J
     if let (Some(mut definition), Some((reading, spellings))) = (daijirin_body_converter(&entry.text), daijirin_heading_converter(&entry.heading, false))
     {
         daijirin_strip_second_heading(&mut definition);
+        Some(JsonEntry { r: reading, s: spellings, l: definition })
+    } else {
+        None
+    }
+}
+
+pub(crate) fn convert_daijirin_no_examples(entry: &EpwingEntry) -> Option<JsonEntry>
+{
+    if let (Some(mut definition), Some((reading, spellings))) = (daijirin_body_converter(&entry.text), daijirin_heading_converter(&entry.heading, true))
+    {
+        daijirin_strip_second_heading(&mut definition);
+        daijirin_strip_examples(&mut definition);
+        Some(JsonEntry { r: reading, s: spellings, l: definition })
+    } else {
+        None
+    }
+}
+
+pub(crate) fn convert_daijirin_no_waei_and_eiwa_no_examples(entry: &EpwingEntry) -> Option<JsonEntry>
+{
+    if let (Some(mut definition), Some((reading, spellings))) = (daijirin_body_converter(&entry.text), daijirin_heading_converter(&entry.heading, false))
+    {
+        daijirin_strip_second_heading(&mut definition);
+        daijirin_strip_examples(&mut definition);
         Some(JsonEntry { r: reading, s: spellings, l: definition })
     } else {
         None

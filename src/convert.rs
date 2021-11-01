@@ -54,8 +54,10 @@ pub (crate) fn get_converter(name : &String) -> Option<&'static Converter>
         "三省堂　スーパー大辞林" =>
          {
              eprintln!("There are multiple converters for this dictionary. Select the one you want to use.");
-             eprintln!("1: With waei and eiwa entries");
-             eprintln!("2: Without waei and eiwa entries (recommended)");
+             eprintln!("1: With waei and eiwa entries; With examples");
+             eprintln!("2: Without waei and eiwa entries; With examples");
+             eprintln!("3: With waei and eiwa entries; Without examples");
+             eprintln!("4: Without waei and eiwa entries; Without examples");
              eprintln!("Enter a number: ");
 
              let i: i32 = read!();
@@ -63,6 +65,8 @@ pub (crate) fn get_converter(name : &String) -> Option<&'static Converter>
              {
                  1 => Some(&convert_daijirin),
                  2 => Some(&convert_daijirin_no_waei_and_eiwa),
+                 3 => Some(&convert_daijirin_no_examples),
+                 4 => Some(&convert_daijirin_no_waei_and_eiwa_no_examples),
                  _ => None
              }
          }
