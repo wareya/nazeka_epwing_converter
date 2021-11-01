@@ -11,7 +11,7 @@ lazy_static! {
     // group 2: pitch
     // group 3: spellings
     // group 4: PoS etc.
-    static ref SECOND_HEADING_REGEX:Regex = Regex::new(r"([^\[]+)(\[[0-9]\])? ?(【.+】)?(.+)?").unwrap();
+    static ref SECOND_HEADING_REGEX:Regex = Regex::new(r"([^\[]+)((?:\[[0-9]\]-?){0,9}) ?(【.+】)?(.+)?").unwrap();
 
     static ref EXAMPLE_REGEX:Regex = Regex::new(r"(「[^「]*―[^「]*」)").unwrap();
 }
