@@ -7,6 +7,7 @@ use std::env;
 mod epwing;
 mod shinmeikai;
 mod wadai;
+mod daijirin;
 mod jsondict;
 mod convert;
 mod conversion_warnings;
